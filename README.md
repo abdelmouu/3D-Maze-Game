@@ -90,7 +90,9 @@ Additional resources include various YouTube tutorials and documentation.
 4. Run the game
 
 ## Author
+
 Abdallah moumni
+
 Taha Hassane
 
 
