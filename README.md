@@ -99,10 +99,3 @@ Taha Hassane
 ## Acknowledgements
 Special thanks to the SDL community, the authors of the referenced tutorials, and the pioneers of early
 3D game development who inspired this project.
-```
-
-This README now combines all the information into a single, comprehensive file.
-It covers the game description, how to play, controls, inspiration, technical details, future enhancements,
-installation instructions, sources, and acknowledgments. You may want to customize certain parts,
-such as adding your name as the author, specifying the exact repository URL, and choosing an appropriate license for your project.
-Additionally, consider adding screenshots or GIFs of your game in action to make the README more visually appealing.
