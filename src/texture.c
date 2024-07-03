@@ -11,7 +11,7 @@ void initializeTextureColor(void)
 {
 	/* display color buffer texture */
 	r.color_buffer_texture = SDL_CreateTexture(r.renderer,
-						   SDL_PIXELFORMAT_RGBA32,
+						   SDL_PIXELFORMAT_ABGR8888,
 						   SDL_TEXTUREACCESS_STREAMING,
 						   WINDOW_WIDTH,
 						   WINDOW_HEIGHT);

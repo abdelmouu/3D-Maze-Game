@@ -1,4 +1,5 @@
 #include "../headers/maze.h"
+#include <float.h>
 
 /**
  * searchHorizontalWall - continue to cast the ray until a horizontal
