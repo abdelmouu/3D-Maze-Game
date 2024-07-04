@@ -88,7 +88,7 @@ void generate3DProjection(void)
 
 		/* render ceiling color */
 		for (y = 0; y < gen.wall_top_pixel; y++)
-			r.color_buffer[(WINDOW_WIDTH * y) + i] = 0xFF990000;
+			r.color_buffer[(WINDOW_WIDTH * y) + i] = 0x667BC6;
 
 		textureOffsetX(i);
 		gen.texture_number = rays[i].wall_hit_content - 1;
@@ -101,6 +101,6 @@ void generate3DProjection(void)
 
 		/* render floor color */
 		for (y = gen.wall_bottom_pixel; y < WINDOW_HEIGHT; y++)
-			r.color_buffer[(WINDOW_WIDTH * y) + i] = 0xFF003355;
+			r.color_buffer[(WINDOW_WIDTH * y) + i] = 0xDA7297;
 	}
 }
