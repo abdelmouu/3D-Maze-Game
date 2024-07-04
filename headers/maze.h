@@ -4,9 +4,6 @@
 #include <SDL2/SDL.h>
 #include "../headers/upng.h"
 
-/****************************/
-/********** MACROS **********/
-/****************************/
 
 #define TRUE 1
 #define FALSE 0
@@ -70,7 +67,7 @@ extern const int map[MAP_NUM_ROWS][MAP_NUM_COLS];
  * @color_buffer: color buffer
  */
 
-struct rendering
+extern struct rendering
 {
 	SDL_Window *window;
 	SDL_Renderer *renderer;
@@ -94,7 +91,7 @@ struct rendering
  * @is_game_running: game is running: TRUE else: FALSE
  */
 
-struct player_struct
+extern struct player_struct
 {
 	float x;
 	float y;
@@ -127,7 +124,7 @@ struct player_struct
  * @wall_hit_content: the content of the wall that was hit
  */
 
-struct ray_struct
+extern struct ray_struct
 {
 	float ray_angle;
 	float distance;
@@ -166,7 +163,7 @@ struct ray_struct
  * @vertical_hit_distance: necessary to chose the smallest hit distance
  */
 
-struct coll_detect_struct
+extern struct coll_detect_struct
 {
 	/* horizontal */
 	int found_horizontal_wall_hit;
@@ -195,7 +192,7 @@ struct coll_detect_struct
  * @texture_buffer: texture buffer
  */
 
-struct wall_texture_struct
+extern struct wall_texture_struct
 {
 	upng_t *upng_texture;
 	int width;
@@ -219,7 +216,7 @@ struct wall_texture_struct
  * @texel_color: the texture color
  */
 
-struct generation_3D_struct
+extern struct generation_3D_struct
 {
 	int wall_strip_height;
 	int wall_top_pixel;
