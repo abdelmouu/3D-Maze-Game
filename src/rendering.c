@@ -83,37 +83,36 @@ void render(void)
 
 void renderMap(void)
 {
-	int i, j;
-	int tile_x, tile_y, tile_color;
-	SDL_Rect map_tile_rect;
+    int i, j;
+    int tile_x, tile_y, tile_color;
+    SDL_Rect map_tile_rect;
+    
+    /* Calculate the position for the bottom center of the screen */
+    int map_offset_x = (WINDOW_WIDTH - (MAP_NUM_COLS * TILE_SIZE * MINIMAP_SCALE_FACTOR)) / 2;
+    int map_offset_y = WINDOW_HEIGHT - (MAP_NUM_ROWS * TILE_SIZE * MINIMAP_SCALE_FACTOR) - 10;
 
-	if (r.renderer == NULL)
-		exitWithError("renderMap, renderer is NULL");
+    if (r.renderer == NULL)
+        exitWithError("renderMap, renderer is NULL");
 
-	for (i = 0; i < MAP_NUM_ROWS; i++)
-	{
-		for (j = 0; j < MAP_NUM_COLS; j++)
-		{
-			tile_y = i * TILE_SIZE;
-			tile_x = j * TILE_SIZE;
-			tile_color = (map[i][j] != 0) ? 255 : 0;
+    for (i = 0; i < MAP_NUM_ROWS; i++)
+    {
+        for (j = 0; j < MAP_NUM_COLS; j++)
+        {
+            tile_y = i * TILE_SIZE;
+            tile_x = j * TILE_SIZE;
+            tile_color = (map[i][j] != 0) ? 255 : 0;
+            if (SDL_SetRenderDrawColor(r.renderer, tile_color, tile_color, tile_color, 255) != 0)
+                exitWithError("renderMap,cannot render color");
 
-			if (SDL_SetRenderDrawColor(r.renderer,
-						   tile_color,
-						   tile_color,
-						   tile_color,
-						   255) != 0)
-				exitWithError("renderMap,cannot render color");
+            map_tile_rect.x = map_offset_x + (tile_x * MINIMAP_SCALE_FACTOR);
+            map_tile_rect.y = map_offset_y + (tile_y * MINIMAP_SCALE_FACTOR);
+            map_tile_rect.w = TILE_SIZE * MINIMAP_SCALE_FACTOR;
+            map_tile_rect.h = TILE_SIZE * MINIMAP_SCALE_FACTOR;
 
-			map_tile_rect.x = tile_x * MINIMAP_SCALE_FACTOR;
-			map_tile_rect.y = tile_y * MINIMAP_SCALE_FACTOR;
-			map_tile_rect.w = TILE_SIZE * MINIMAP_SCALE_FACTOR;
-			map_tile_rect.h = TILE_SIZE * MINIMAP_SCALE_FACTOR;
-
-			if (SDL_RenderFillRect(r.renderer, &map_tile_rect) != 0)
-				exitWithError("renderMap, cannot fill rect");
-		}
-	}
+            if (SDL_RenderFillRect(r.renderer, &map_tile_rect) != 0)
+                exitWithError("renderMap, cannot fill rect");
+        }
+    }
 }
 
 /**
@@ -124,25 +123,27 @@ void renderMap(void)
 
 void renderPlayer(void)
 {
-	SDL_Rect player_rect;
+    SDL_Rect player_rect;
+    
+    /* Calculate the position for the bottom center of the screen (same as in renderMap) */
+    int map_offset_x = (WINDOW_WIDTH - (MAP_NUM_COLS * TILE_SIZE * MINIMAP_SCALE_FACTOR)) / 2;
+    int map_offset_y = WINDOW_HEIGHT - (MAP_NUM_ROWS * TILE_SIZE * MINIMAP_SCALE_FACTOR) - 10;
 
-	if (SDL_SetRenderDrawColor(r.renderer, 255, 255, 255, 255) != 0)
-		exitWithError("renderPlayer, cannot set render draw color");
+    if (SDL_SetRenderDrawColor(r.renderer, 255, 255, 255, 255) != 0)
+        exitWithError("renderPlayer, cannot set render draw color");
 
-	player_rect.x = player.x * MINIMAP_SCALE_FACTOR;
-	player_rect.y = player.y * MINIMAP_SCALE_FACTOR;
-	player_rect.w = player.width * MINIMAP_SCALE_FACTOR;
-	player_rect.h = player.height * MINIMAP_SCALE_FACTOR;
+    player_rect.x = map_offset_x + (player.x * MINIMAP_SCALE_FACTOR);
+    player_rect.y = map_offset_y + (player.y * MINIMAP_SCALE_FACTOR);
+    player_rect.w = player.width * MINIMAP_SCALE_FACTOR;
+    player_rect.h = player.height * MINIMAP_SCALE_FACTOR;
 
-	if (SDL_RenderFillRect(r.renderer, &player_rect) != 0)
-		exitWithError("renderPlayer, cannot fill rectangle");
+    if (SDL_RenderFillRect(r.renderer, &player_rect) != 0)
+        exitWithError("renderPlayer, cannot fill rectangle");
 
-	if (SDL_RenderDrawLine(r.renderer,
-			       player.x * MINIMAP_SCALE_FACTOR,
-			       player.y * MINIMAP_SCALE_FACTOR,
-			       (player.x + cos(player.rotation_angle) * 40) *
-				   MINIMAP_SCALE_FACTOR,
-			       (player.y + sin(player.rotation_angle) * 40) *
-				   MINIMAP_SCALE_FACTOR) != 0)
-		exitWithError("renderPlayer, cannot render draw line");
+    if (SDL_RenderDrawLine(r.renderer,
+                           map_offset_x + (player.x * MINIMAP_SCALE_FACTOR),
+                           map_offset_y + (player.y * MINIMAP_SCALE_FACTOR),
+                           map_offset_x + ((player.x + cos(player.rotation_angle) * 40) * MINIMAP_SCALE_FACTOR),
+                           map_offset_y + ((player.y + sin(player.rotation_angle) * 40) * MINIMAP_SCALE_FACTOR)) != 0)
+        exitWithError("renderPlayer, cannot render draw line");
 }
